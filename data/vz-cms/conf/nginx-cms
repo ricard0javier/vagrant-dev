@@ -1,0 +1,55 @@
+server {
+        
+        listen 443 ssl;
+        listen [::]:443;
+
+        ssl_certificate /ricardovz/cms/conf/vz-cms.pem;
+        ssl_certificate_key /ricardovz/cms/conf/vz-cms.key;
+        
+        root /ricardovz/cms/wordpress;
+        
+        index index.html index.htm index.php;
+        
+        server_name dev.ricardovz.com;
+        
+        location / {
+                # First attempt to serve request as file, then 
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ /index.php?q=$uri&$args;
+        }
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        
+        location ~ \.php$ {
+              include snippets/fastcgi-php.conf;
+        
+              # With php5-cgi alone:
+              fastcgi_pass 127.0.0.1:9000;
+        }
+}
+
+server {
+        listen 80;
+        listen [::]:80;
+        
+        root /ricardovz/cms/wordpress;
+        
+        index index.html index.htm index.php;
+        
+        server_name dev.ricardovz.com;
+        
+        location / {
+                # First attempt to serve request as file, then 
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ /index.php?q=$uri&$args;
+        }
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        
+        location ~ \.php$ {
+              include snippets/fastcgi-php.conf;
+        
+              # With php5-cgi alone:
+              fastcgi_pass 127.0.0.1:9000;
+        }
+}

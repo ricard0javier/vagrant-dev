@@ -11,16 +11,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # dev.vm.network "private_network", ip: "192.168.33.20"
 
-    dev.vm.network "forwarded_port", guest: 80, host: 80
-    dev.vm.network "forwarded_port", guest: 8080, host: 8080
+    dev.vm.network "forwarded_port", guest: 9000, host: 9000
+    dev.vm.network "forwarded_port", guest: 80, host: 9080
+    dev.vm.network "forwarded_port", guest: 443, host: 9443
 
     dev.vm.synced_folder "./data", "/data"
 
     dev.vm.provider "virtualbox" do |vb|
 
       vb.name = "dev"
-      vb.memory = 4096
-      vb.cpus = 2
+      vb.memory = 1024
+      vb.cpus = 1
 
     end
 

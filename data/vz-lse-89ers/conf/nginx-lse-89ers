@@ -1,0 +1,26 @@
+server {
+        listen 80;
+        listen [::]:80;
+        
+        root /ricardovz/lse-89ers/wordpress;
+        
+        index index.html index.htm index.php;
+        
+        server_name 1989generationinitiative.org;
+        server_name www.1989generationinitiative.org;
+        
+        location / {
+                # First attempt to serve request as file, then 
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ /index.php?q=$uri&$args;
+        }
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        
+        location ~ \.php$ {
+              include snippets/fastcgi-php.conf;
+        
+              # With php5-cgi alone:
+              fastcgi_pass 127.0.0.1:9000;
+        }
+}

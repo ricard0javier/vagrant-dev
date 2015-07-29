@@ -1,0 +1,21 @@
+webserver:
+    build: vz-webserver
+    ports: 
+        - "80:80"
+        - "443:443"
+    volumes_from:
+        - cms
+        - lse89ers
+    links:
+        - mariadb:mysql
+
+cms:
+    build: vz-cms
+
+lse89ers:
+    build: vz-lse-89ers
+
+mariadb:
+    image: library/mariadb
+    environment: 
+        - MYSQL_ROOT_PASSWORD=my-secret-pw
