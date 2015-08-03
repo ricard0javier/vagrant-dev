@@ -1,0 +1,30 @@
+server {
+
+    listen 443 ssl;
+    listen [::]:443;
+
+    ssl_certificate /ricardovz/api/conf/vz-api.pem;
+    ssl_certificate_key /ricardovz/api/conf/vz-api.key;
+
+    location / {
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+
+        proxy_pass  http://vz-api;
+    }
+}
+
+server {
+
+    listen 80;
+    listen [::]:80;
+
+    location / {
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+
+        proxy_pass  http://vz-api;
+    }
+}
