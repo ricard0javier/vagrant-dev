@@ -10,7 +10,7 @@ server {
         
         index index.html index.htm index.php;
         
-        server_name dev.ricardovz.com;
+        server_name cms.ricardovz.com;
         
         location / {
                 # First attempt to serve request as file, then 
@@ -36,7 +36,7 @@ server {
         
         index index.html index.htm index.php;
         
-        server_name dev.ricardovz.com;
+        server_name cms.ricardovz.com;
         
         location / {
                 # First attempt to serve request as file, then 

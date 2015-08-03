@@ -13,7 +13,6 @@ VOLUME /ricardovz
 
 COPY docker-entrypoint.sh /entrypoint.sh
 
-# grr, ENTRYPOINT resets CMD now
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
 
