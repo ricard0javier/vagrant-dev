@@ -1,3 +1,4 @@
+# webserver defintion that manage all the node/VM connections and requests
 webserver:
     build: vz-webserver
     ports: 
@@ -6,16 +7,31 @@ webserver:
     volumes_from:
         - cms
         - lse89ers
+        - api
     links:
         - mariadb:mysql
+        - api:vz-api
 
-cms:
-    build: vz-cms
-
-lse89ers:
-    build: vz-lse-89ers
-
+# databases definition, mysql and mongo
 mariadb:
     image: library/mariadb
     environment: 
         - MYSQL_ROOT_PASSWORD=my-secret-pw
+
+mongodb:
+    image: library/mongo
+
+# cms to provide posts and articles data
+cms:
+    build: vz-cms
+
+# LSE 1989 generation project
+lse89ers:
+    build: vz-lse-89ers
+
+# monolithic api to provide all the requirements invented or requested by someone else
+api:
+    build: vz-api
+    links:
+        - mongodb:mongodb
+        - mariadb:mysql
