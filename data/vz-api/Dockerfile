@@ -3,19 +3,17 @@ FROM java:jdk
 ENV spring.mail.password my-secret-pw
 ENV spring.data.mongodb.host mongodb
 
-RUN mkdir -p /ricardovz/api
-
-RUN mkdir -p /ricardovz/api/ricardovz-api \
-	git clone https://github.com/ricard0javier/ricardovz /ricardovz/api/ricardovz-api \
-	cd /ricardovz/api/ricardovz-api \
-	./gradlew distTar \
-	mv build/distributions/ricardovz-api.tar /ricardovz/ricardovz-api.tar \
-	rm -R /ricardovz/api
+RUN mkdir -p /ricardovz/api/temp/ricardovz-api \
+	&& git clone https://github.com/ricard0javier/ricardovz /ricardovz/api/temp/ricardovz-api \
+	&& cd /ricardovz/api/temp/ricardovz-api \
+	&& ./gradlew distTar \
+	&& mv build/distributions/ricardovz-api.tar /ricardovz/ricardovz-api.tar \
+	&& rm -R /ricardovz/api/temp
 
 RUN cd /ricardovz/api/ \
-	mv /ricardovz/ricardovz-api.tar /ricardovz/api/ricardovz-api.tar \
-	tar -xvf ricardovz-api.tar \
-	rm ricardovz-api.tar
+	&& mv /ricardovz/ricardovz-api.tar /ricardovz/api/ricardovz-api.tar \
+	&& tar -xvf ricardovz-api.tar \
+	&& rm ricardovz-api.tar
 
 COPY conf /ricardovz/api/conf
 
