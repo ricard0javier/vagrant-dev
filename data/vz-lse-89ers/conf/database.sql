@@ -1,4 +1,0 @@
-CREATE DATABASE IF NOT EXISTS 'lse89ers';
-CREATE USER 'lse89ers'@'%' IDENTIFIED BY 'my-secret-pw';
-GRANT ALL ON lse89ers.* TO 'lse89ers'@'%';
-FLUSH PRIVILEGES;
