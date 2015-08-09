@@ -35,3 +35,8 @@ api:
     links:
         - mongodb:mongodb
         - mariadb:mysql
+    environment:
+        - spring.mail.password=my-secret-pw
+        - spring.data.mongodb.host=mongodb
+        - AWS_SECRET_ACCESS_KEY=my-secret-pw
+        - AWS_ACCESS_KEY_ID=my-secret-pw
