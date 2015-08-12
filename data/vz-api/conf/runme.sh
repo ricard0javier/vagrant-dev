@@ -1,14 +1,30 @@
 #!/bin/bash
 set -e
 
-# update the api bins
-aws s3 sync s3://ricardovz.com/backend/ricardovz-api /ricardovz/api
+if [ "$1" = 'start-api' ]; then
 
-# stop any process running on its port
-kill $API_PID &
+	echo ' --- update the api bins'
+	aws s3 sync s3://ricardovz.com/backend/ricardovz-api /ricardovz/api
+	
+	echo ' --- update permissions'
+	chmod -R a+x /ricardovz/api
 
-# run the latest version of the api
-bash /ricardovz/api/bin/ricardovz-api &
-export API_PID=$!
+	echo ' --- stop any process running on its port'
+	kill $(cat /ricardovz/api/API_PID) &
 
-bash
+	echo ' --- run the latest version of the api'
+	bash /ricardovz/api/bin/ricardovz-api &
+
+	echo ' --- export Process id'
+	echo $! > /ricardovz/api/API_PID
+
+	sleep infinity
+
+fi
+
+
+if [ "$1" != 'start-api' ]; then
+	
+	exec "$@"
+
+fi

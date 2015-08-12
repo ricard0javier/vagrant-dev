@@ -15,6 +15,9 @@ webserver:
 # databases definition, mysql and mongo
 mariadb:
     image: library/mariadb
+    volumes_from:
+        - cms
+        - lse89ers
     environment: 
         - MYSQL_ROOT_PASSWORD=my-secret-pw
 
@@ -34,9 +37,10 @@ api:
     build: vz-api
     links:
         - mongodb:mongodb
-        - mariadb:mysql
     environment:
-        - spring.mail.password=my-secret-pw
         - spring.data.mongodb.host=mongodb
+        - spring.mail.password=my-secret-pw
+        - logging.file=/ricardovz/api/api.log
         - AWS_SECRET_ACCESS_KEY=my-secret-pw
         - AWS_ACCESS_KEY_ID=my-secret-pw
+    command: bash /ricardovz/api/conf/runme.sh
